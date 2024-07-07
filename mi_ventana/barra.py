@@ -11,9 +11,9 @@ class Barra(tk.Frame):
         
     def _widget_Barra(self):
         # VARIABLES
-        self.bg = '#404040'
+        self.bg = '#303030'
         self.alto = 12
-        self.config(bg=self.bg)
+        self.config(bg=self.bg, height=self.alto)
         # VARIABLES
         
         self.ico_pro = tk.PhotoImage(file='icos/T_10p_b.png')
@@ -36,9 +36,9 @@ class Barra(tk.Frame):
 
         # TITULO
         self.tex_titulo = tk.Text(
-            self, height=1, padx=6, font=("Arial", 8, "bold"),
+            self, height=1, padx=6, font=("Consolas", 8, "bold"),
             # bg=self.bg, fg="#FFD68B", relief="flat"
-            bg='red', fg="#FFD68B", relief="flat"
+            bg='#303030', fg="#E5E5E5", relief="flat"
         )
         self.tex_titulo.grid(row=0, column=1)
         self.tex_titulo.insert("end", "TITULO SECUNDARIO FILE: c:/folder/mi_directorio")
@@ -52,7 +52,7 @@ class Barra(tk.Frame):
         # self.tex_info.insert("end", "EXt: MP4")
         
         # agregando botones basicos
-        self.bts_base = FrameBotones(self) 
+        self.bts_base = FrameBotones(self)
         self.bts_base.grid(row=0, column=3)
         
         self.rowconfigure(0, weight=1)

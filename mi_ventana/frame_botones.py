@@ -27,11 +27,11 @@ class IconoTk():
 
     
 class Boton(tk.Button):
-    def __init__(self, parent=None, bg='gray', *args, **kw):
+    def __init__(self, parent=None, bg='#303030', *args, **kw):
         super(Boton, self).__init__(master=parent, bg=bg, *args, **kw)
         self.parent = parent
         self.bg = bg
-        self.bg_hover = 'black'
+        self.bg_hover = '#272822'
         self.icono = IconoTk()
         self._mi_cnf_Boton()
 
@@ -63,7 +63,7 @@ class Boton(tk.Button):
 
 
 class FrameBotones(tk.Frame):
-    def __init__(self, parent, bgh='#404040', bgh_x='#EB4C42', *args, **kw):
+    def __init__(self, parent, bgh='#272822', bgh_x='#F92672', *args, **kw):
         super(FrameBotones, self).__init__(master=parent, *args, **kw)
         self.bgh = bgh
         self.bgh_x = bgh_x
