@@ -2,43 +2,31 @@ from tkinter import ttk
 import tkinter as tk
 # from iconos_mv import MisIconos
 from frame_botones import FrameBotones
+from label_menu import LabelMenu
 
 
 class Barra(tk.Frame):
-    def __init__(self, parent, *args, **kw):
+    def __init__(self, parent, bg='#303030', height=12, *args, **kw):
         super(Barra, self).__init__(master=parent, *args, **kw)
+        # VARIABLES
+        self.bg = bg
+        self.alto = height
+        # VARIABLES
         self._widget_Barra()
         
     def _widget_Barra(self):
-        # VARIABLES
-        self.bg = '#303030'
-        self.alto = 12
         self.config(bg=self.bg, height=self.alto)
-        # VARIABLES
-        
-        self.ico_pro = tk.PhotoImage(file='icos/T_10p_b.png')
-        lb_logo = tk.Label(
-            self, image=self.ico_pro, text='PROGRAMA', compound='left',
-            font=("Consolas", 8, "bold"),
-            bg="#101010", fg="#F0EAD6"
-        )
-        lb_logo.grid(row=0, column=0, sticky='w')
-        lb_logo.bind("<Button-1>", self.accion_logo)
-
-        self.menu = tk.Menu(
-            lb_logo, tearoff=False,
-            activebackground=self.bg,
-            font=("Consolas", 8, "bold")
-        )
-        self.menu.add_command(label='uno')
-        self.menu.add_command(label='dos')
-        # lb_logo.add_cascade(label="algo", menu=self.menu)
+        # ICONO LABEL
+        self.lb_menu = LabelMenu(self)
+        self.lb_menu.grid(row=0, column=0)
 
         # TITULO
         self.tex_titulo = tk.Text(
             self, height=1, padx=6, font=("Consolas", 8, "bold"),
             # bg=self.bg, fg="#FFD68B", relief="flat"
-            bg='#303030', fg="#E5E5E5", relief="flat"
+            bg='#303030', fg="#E5E5E5", relief="flat",
+            selectbackground='#202020',
+            selectforeground='orange',
         )
         self.tex_titulo.grid(row=0, column=1)
         self.tex_titulo.insert("end", "TITULO SECUNDARIO FILE: c:/folder/mi_directorio")
@@ -52,23 +40,12 @@ class Barra(tk.Frame):
         # self.tex_info.insert("end", "EXt: MP4")
         
         # agregando botones basicos
-        self.bts_base = FrameBotones(self)
+        self.bts_base = FrameBotones(self, bgh='black')
         self.bts_base.grid(row=0, column=3)
         
         self.rowconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
 
-    def accion_logo(self, e):
-        # COORDENADAS DE LA VENTANA
-        wx, wy = self.winfo_rootx(), self.winfo_rooty()
-        print(wx, wy)
-        # ancho y alto de label
-        lb = e.widget
-        lbw, lbh = lb.winfo_width(), lb.winfo_height()
-        print(lbw, lbh)
-        # coordenadas del menu debajo del label
-        x, y = wx, wy+lbh
-        self.menu.tk_popup(x, y)
 
 class Ventana(tk.Tk):
     def __init__(self, **kw):

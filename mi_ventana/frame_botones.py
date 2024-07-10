@@ -27,11 +27,11 @@ class IconoTk():
 
     
 class Boton(tk.Button):
-    def __init__(self, parent=None, bg='#303030', *args, **kw):
+    def __init__(self, parent=None, bg='#303030', bgh='#272822', *args, **kw):
         super(Boton, self).__init__(master=parent, bg=bg, *args, **kw)
         self.parent = parent
         self.bg = bg
-        self.bg_hover = '#272822'
+        self.bg_hover = bgh
         self.icono = IconoTk()
         self._mi_cnf_Boton()
 
@@ -63,30 +63,31 @@ class Boton(tk.Button):
 
 
 class FrameBotones(tk.Frame):
-    def __init__(self, parent, bgh='#272822', bgh_x='#F92672', *args, **kw):
+    def __init__(self, parent, bgh='#272822', bgh_x='#F92672', bga='green', *args, **kw):
         super(FrameBotones, self).__init__(master=parent, *args, **kw)
         self.bgh = bgh
+        self.bga = bga
         self.bgh_x = bgh_x
         self._widget_FrameBotones()
         
     def _widget_FrameBotones(self):
-        self.bt_izq = self.crea_boton('icos/izq2n_10.png', 'icos/izq2h_10.png', activebackground='blue')
+        d = {'bgh':self.bgh, 'activebackground':self.bga}
+        self.bt_izq = self.crea_boton('icos/izq2n_10.png', 'icos/izq2h_10.png', **d)
         self.bt_izq.grid(row=0, column=0, sticky='e')
-        self.bt_min = self.crea_boton('icos/minn_10.png', 'icos/minh_10.png', bg=self.bgh)
+        self.bt_min = self.crea_boton('icos/minn_10.png', 'icos/minh_10.png', **d)
         self.bt_min.grid(row=0, column=1, sticky='e')
-        self.bt_fw = self.crea_boton('icos/f2n_10.png', 'icos/f2h_10.png', bg=self.bgh)
+        self.bt_fw = self.crea_boton('icos/f2n_10.png', 'icos/f2h_10.png', **d)
         self.bt_fw.grid(row=0, column=2, sticky='e')
-        self.bt_x = self.crea_boton('icos/xn_10.png', 'icos/xh_10.png', bg=self.bgh_x)
+        self.bt_x = self.crea_boton('icos/xn_10.png', 'icos/xh_10.png', **d)
         self.bt_x.grid(row=0, column=3, sticky='e')
+        self.bt_x.bg_hover = self.bgh_x
 
-    def crea_boton(self, ico, icoh, bg=None, **kw):
+    def crea_boton(self, ico, icoh, **kw):
         bt = Boton(self, **kw)
         bt.asigna_icono(file=ico)
         bt.asigna_icono_hover(file=icoh)
-        if bg:
-            bt.bg_hover = bg
+        bt.bg_hover = self.bgh
         return bt
-
         
     
 class Ventana(tk.Tk):
