@@ -18,6 +18,18 @@ class FrameDrag(tk.Frame):
         self.parent.bind('<Button-1>', self.posicion_relativa)
         self.parent.bind('<ButtonRelease-1>', self.drag_unbind)
 
+        # self.grip_e.config(text='\n\n')
+        # AGEGANDO LOS GRIPS
+        self.grip_se = self.mkGrip(1.0, 1.0, 'se')
+        self.grip_e = self.mkGrip(1.0, 0.5, 'e')
+        self.grip_ne = self.mkGrip(1.0, 0, 'ne')
+        self.grip_n = self.mkGrip(0.5, 0, 'n')
+        self.grip_nw = self.mkGrip(0, 0, 'nw')
+        self.grip_w = self.mkGrip(0, 0.5, 'w')
+        self.grip_sw = self.mkGrip(0, 1.0, 'sw')
+        self.grip_s = self.mkGrip(0.5, 1.0, 's')
+    
+
     def cerrar(self, e=None):
         self.parent.destroy()
     
@@ -27,7 +39,7 @@ class FrameDrag(tk.Frame):
         self.ox, self.oy = int(geo[1]), int(geo[2])
         self.rel_x = cx - self.ox
         self.rel_y = cy - self.oy
-        self.parent.bind('<Motion>', self.drag_wid)
+        self.bind('<Motion>', self.drag_wid)
         self.parent.title(f"x:{cx}, y:{cy} | {self.rel_x}, {self.rel_y}")
 
     def drag_wid(self, e):
@@ -42,9 +54,23 @@ class FrameDrag(tk.Frame):
         self.parent.title(f"{x}, {y}")
 
     def drag_unbind(self, e):
-        self.parent.unbind('<Motion>')
+        self.unbind('<Motion>')
         if self.release_cmd != None:
             self.release_cmd()
+
+    def mkGrip(self, x, y, anchor:str, bg='blue'):
+        grip = tk.Label(self.parent, bg=bg)
+        grip.place(relx=x, rely=y, anchor=anchor)
+        grip.bind('<B1-Motion>',lambda e,mode=anchor:self._enMovimiento(e,mode))
+        return grip
+
+    def _enMovimiento(self, e, modo=None):
+        abs_x = self.winfo_pointerx()-self.winfo_rootx()
+        abs_y = self.winfo_pointery()-self.winfo_rooty()
+        w, h = self.winfo_width(), self.winfo_height()
+
+        if modo=='se' and abs_x>0 and abs_y>0:
+            self.parent.geometry(f'{abs_x}x{abs_y}')
         
     
 class Ventana(tk.Tk):
