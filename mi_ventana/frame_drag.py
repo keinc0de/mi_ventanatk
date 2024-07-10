@@ -65,12 +65,32 @@ class FrameDrag(tk.Frame):
         return grip
 
     def _enMovimiento(self, e, modo=None):
-        abs_x = self.winfo_pointerx()-self.winfo_rootx()
-        abs_y = self.winfo_pointery()-self.winfo_rooty()
-        w, h = self.winfo_width(), self.winfo_height()
+        self.parent.update()
+        x, y = self.winfo_rootx(), self.winfo_rooty()
+        abs_x = self.winfo_pointerx()-x
+        abs_y = self.winfo_pointery()-y
+        w, h = self.winfo_width(), self.rz.winfo_height()
+        # print("y ay h: ", y, abs_y, h)
+        # print("x:", x)
 
         if modo=='se' and abs_x>0 and abs_y>0:
             self.parent.geometry(f'{abs_x}x{abs_y}')
+        if modo=='e':
+            if h>0 and abs_x>0:
+                self._geo(abs_x, h)
+        if modo=='ne' and abs_x>0:
+            y+=abs_y
+            h-=abs_y
+            if h>0:
+                self._gm(abs_x, h, y, x)
+
+    def _geo(self, w, h):
+        self.parent.geometry(f'{w}x{h}')
+
+    def _gm(self, w, h, x, y):
+        self.parent.geometry(f'{w}x{h}+{x}+{y}')
+
+    
         
     
 class Ventana(tk.Tk):
@@ -82,6 +102,7 @@ class Ventana(tk.Tk):
         
         wg = FrameDrag(self)
         wg.grid(row=0, column=0, sticky="wens")
+        self.overrideredirect(True)
         
 
 if __name__=="__main__":
