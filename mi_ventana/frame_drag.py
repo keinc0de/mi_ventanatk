@@ -83,6 +83,34 @@ class FrameDrag(tk.Frame):
             h-=abs_y
             if h>0:
                 self._gm(abs_x, h, y, x)
+        if modo=='n':
+            h-=abs_y
+            y+=abs_y
+            if h>0 and w>0:
+                self._gm(w, h, x, y)
+        if modo=='nw':
+            w-=abs_x
+            h-=abs_y
+            x+=abs_x
+            y+=abs_y
+            if h>0 and w>0:
+                self._gm(w,h,x,y)
+        if modo=='w':
+            w-=abs_x
+            x+=abs_x
+            if h>0 and w>0:
+                self._gm(w,h,x,y)
+        if modo=='sw':
+            w-=abs_x
+            h-=(h-abs_y)
+            x+=abs_x
+            if h>0 and w>0:
+                self._gm(w,h,x,y)
+        if modo=='s':
+            h-=(h-abs_y)
+            if h>0 and w>0:
+                self._gm(w,h,x,y)
+        
 
     def _geo(self, w, h):
         self.parent.geometry(f'{w}x{h}')
