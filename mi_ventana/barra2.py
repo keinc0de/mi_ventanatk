@@ -66,14 +66,16 @@ class Ventana(tk.Tk):
         self.bar = Barra(self)
         self.bar.grid(row=0, column=0, sticky="wens")
         
-        # fm = FrameDrag(self, bg='white')
-        fm = tk.Text(self, bg='skyblue')
+        fm = FrameDrag(self, bg='white')
+        # fm = tk.Text(self, bg='skyblue')
         fm.grid(row=1, column=0, sticky='wens')
         self.overrideredirect(1)
 
         self.columnconfigure(0, weight=1)
         self.rowconfigure(1, weight=1)
         self.drag = DragPara(self)
+        self.bar.bind('<Enter>', self.barra_in)
+        self.bar.bind('<Leave>', self.barra_out)
 
     #     self.grip = ttk.Sizegrip(self)
     #     self.grip.place(relx=1.0, rely=1.0, anchor='se')
@@ -90,8 +92,6 @@ class Ventana(tk.Tk):
     #     self.geometry("%sx%s" % ((x1-x0), (y1-y0)))
     #     return
 
-        self.bar.bind('<Enter>', self.barra_in)
-        self.bar.bind('<Leave>', self.barra_out)
         # self.wg.bind('<ButtonPress-1>', self.posicion_relativa)
         # self.wg.bind('<ButtonRelease-1>', self.drag_unbind)
 

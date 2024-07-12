@@ -80,10 +80,15 @@ class FrameDrag(tk.Frame):
         self.btn_x.place(relx=1.0, rely=0, anchor='ne')
 
     def _enMovimiento(self, e, modo=None):
-        x, y = self.winfo_rootx(), self.winfo_rooty()
-        abs_x = self.winfo_pointerx()-x
-        abs_y = self.winfo_pointery()-y
-        w, h = self.winfo_width(), self.rz.winfo_height()
+        # x, y = self.winfo_rootx(), self.winfo_rooty()
+        # abs_x = self.winfo_pointerx()-x
+        # abs_y = self.winfo_pointery()-y
+        # w, h = self.winfo_width(), self.rz.winfo_height()
+        x, y = self.parent.winfo_rootx(), self.parent.winfo_rooty()
+        abs_x = self.parent.winfo_pointerx()-x
+        abs_y = self.parent.winfo_pointery()-y
+        w, h = self.parent.winfo_width(), self.parent.winfo_height()
+        hmin = 40
 
         if modo=='se' and abs_x>0 and abs_y>0:
             self._gm_wh(abs_x, abs_y)
@@ -93,7 +98,7 @@ class FrameDrag(tk.Frame):
         elif modo=='ne' and abs_x>0:
             y+=abs_y
             h-=abs_y
-            if h>0:
+            if h>hmin:
                 self._gm(abs_x, h, y, x)
         elif modo=='n':
             h-=abs_y
@@ -105,7 +110,7 @@ class FrameDrag(tk.Frame):
             h-=abs_y
             x+=abs_x
             y+=abs_y
-            if h>0 and w>0:
+            if h>hmin and w>0:
                 self._gm(w,h,x,y)
         elif modo=='w':
             w-=abs_x
@@ -116,7 +121,7 @@ class FrameDrag(tk.Frame):
             w-=abs_x
             h-=(h-abs_y)
             x+=abs_x
-            if h>0 and w>0:
+            if h>hmin and w>0:
                 self._gm(w,h,x,y)
         elif modo=='s':
             h-=(h-abs_y)
