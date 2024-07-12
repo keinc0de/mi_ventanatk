@@ -42,6 +42,8 @@ class Barra(tk.Frame):
         # agregando botones basicos
         self.bts_base = FrameBotones(self, bgh='black')
         self.bts_base.grid(row=0, column=3)
+        # self.fm_ne = tk.Frame(self, bg='red', width=3)
+        # self.fm_ne.grid(row=0, column=4, sticky='wens')
         
         self.rowconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
