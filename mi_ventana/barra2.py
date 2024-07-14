@@ -96,18 +96,19 @@ class Ventana(tk.Tk):
         # self.wg.bind('<ButtonRelease-1>', self.drag_unbind)
 
     def barra_in(self, e):
-        print("encima")
+        #~ print("encima")
         self.bind('<ButtonPress-1>', self.drag.posicion_relativa)
         # self.bind('<ButtonRelease-1>', self.drag.drag_unbind)
         self.bind('<ButtonRelease-1>', self.nobind)
 
     def barra_out(self, e):
-        print("fuera")
+        #~ print("fuera")
         self.unbind('<Motion>')
 
     def nobind(self, e):
         self.unbind('<Motion>')
         self.unbind('<ButtonPress-1>')
+
 
 if __name__=="__main__":
     app = Ventana()
